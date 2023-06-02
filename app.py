@@ -1,7 +1,11 @@
 import os
 import psycopg2
 from flask import Flask, render_template, request, url_for, flash, redirect
+from datetime import date
 
+#data_atual = date.today()
+#contagem_data = created - data_atual
+#print(contagem_data)
 
 # cria a conexao com o BD
 def get_db_connection():
@@ -54,14 +58,15 @@ def create():
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
+        hora = request.form['hora']
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('INSERT INTO posts (title, content) VALUES (%s, %s)',
-                         (title, content))
+            cur.execute('INSERT INTO posts (title, content, hora) VALUES (%s, %s, %s)',
+                         (title, content, hora))
             conn.commit()
             cur.close()
             conn.close()
@@ -79,15 +84,17 @@ def edit(id):
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
+        hora = request.form['hora']
+
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('UPDATE posts SET title = %s, content = %s'
+            cur.execute('UPDATE posts SET title = %s, content = %s, hora = %s'
                          ' WHERE id = %s',
-                         (title, content, id))
+                         (title, content, hora, id))
             conn.commit()
             cur.close()
             conn.close()
