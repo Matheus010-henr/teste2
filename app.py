@@ -59,14 +59,16 @@ def create():
         title = request.form['title']
         content = request.form['content']
         hora = request.form['hora']
+        concluido = request.form['concluido']
+        
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('INSERT INTO posts (title, content, hora) VALUES (%s, %s, %s)',
-                         (title, content, hora))
+            cur.execute('INSERT INTO posts (title, content, hora, concluido) VALUES (%s, %s, %s, %s)',
+                         (title, content, hora, concluido))
             conn.commit()
             cur.close()
             conn.close()
@@ -85,16 +87,16 @@ def edit(id):
         title = request.form['title']
         content = request.form['content']
         hora = request.form['hora']
-
+        concluido = request.form['concluido']
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('UPDATE posts SET title = %s, content = %s, hora = %s'
+            cur.execute('UPDATE posts SET title = %s, content = %s, hora = %s, concluido = %s'
                          ' WHERE id = %s',
-                         (title, content, hora, id))
+                         (title, content, hora, concluido, id))
             conn.commit()
             cur.close()
             conn.close()

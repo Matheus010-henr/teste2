@@ -17,13 +17,22 @@
                   class="form-control">{{ request.form['content'] }}</textarea>
     </div>
 
+
     <div class="form-group">
         <label for="hora">Hora de Vencimento</label>
-        <textarea name="hora" placeholder="HH:MM:SS"
+        <textarea name="hora" placeholder="AAAA-MM-DD HH:MM:SS"
                   class="form-control">{{ request.form['hora'] }}</textarea>
     </div>
+
+
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <label for="concluido">Concluido? </label>
+        <textarea name="concluido" placeholder="Sim ou Não"
+                  class="form-control">{{ request.form['concluido'] }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Criar</button>
     </div>
 </form>
 {% endblock %}
